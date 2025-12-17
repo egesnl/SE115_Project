@@ -58,11 +58,35 @@ static boolean dataLoaded = false;
     // ======== 10 REQUIRED METHODS (Students fill these) ========
 
     public static String mostProfitableCommodityInMonth(int month) {
-        return "DUMMY"; 
+    if (month<0 || month>= MONTHS ) return "Invalid month";
+    int bestCommodity = 0;
+    int bestSum=0;
+
+    for (int i = 0; i < DAYS; i++) {
+        bestSum += profits[month][i][0];
+    }
+    for (int j = 0; j<COMMS; j++){
+        int sum = 0;
+        for (int i = 0; i < DAYS; i++) {
+            bestSum += profits[month][i][j];
+        }
+        if (sum > bestSum){
+            bestSum = sum;
+            bestCommodity = j;
+        }
+    }
+        return commodities[bestCommodity] + " " + bestSum;
     }
 
     public static int totalProfitOnDay(int month, int day) {
-        return 1234;
+     if (month <0 || month >= MONTHS) return -99999;
+     if (day < 1 || day > DAYS)  return -99999;
+     int dIndex = day - 1;
+     int sum = 0;
+     for (int i = 0; i < COMMS; i++){
+         sum += profits [month][dIndex][i];
+     }
+    return sum;
     }
 
     public static int commodityProfitInRange(String commodity, int from, int to) {

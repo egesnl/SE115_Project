@@ -237,8 +237,32 @@ static boolean dataLoaded = false;
         return c2 + "is better by" + diff; 
     }
     
-    public static String bestWeekOfMonth(int month) { 
-        return "DUMMY"; 
+    public static String bestWeekOfMonth(int month) {
+    if (month<0 || month >= MONTHS) return "Invalid month";
+    int bestWeek = 0;
+    int bestSum = 0;
+
+    for (int i=0; i<=6;i++){
+        for (int j=0; j<=COMMS;j++){
+            bestSum += profits[month][i][j]
+        }
+    }
+    for (int i=2; i<=4; i++){
+        int start=(i-1) * 7;
+        int end= start+6;
+        int sum = 0;
+        for (int ii=start; ii<=end; ii++){
+            for (int j=0; j<=COMMS; j++){
+                sum += profits[month][ii][j]
+            }
+        }
+        if (sum > bestSum){
+            bestSum = sum;
+            bestWeek = i;
+        }
+    }
+
+        return "Week" + bestWeek; 
     }
 
     public static void main(String[] args) {

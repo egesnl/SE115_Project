@@ -264,6 +264,31 @@ static boolean dataLoaded = false;
 
         return "Week" + bestWeek; 
     }
+// helper
+    private static int[] parseLineForLoadData(String line) {
+    String[] parts = line.split(",");
+    if (parts.length != 3) return null;
+    int day;
+    int profitVal;
+
+    try {
+        day = Integer.parseInt(parts[0].trim());
+        profitVal = Integer.parseInt(parts[2].trim());
+    } catch (Exception e) {
+        return null;
+    }
+    if (day < 1 || day > DAYS) return null;
+    String comm = parts[1].trim();
+    int cIndex = -1;
+    for (int i = 0; i < COMMS; i++) {
+        if (commodities[i].equals(comm)) {
+            cIndex = i;
+            break;
+        }
+    }
+    if (cIndex == -1) return null;
+    return new int[]{day, cIndex, profitVal};
+}
 
     public static void main(String[] args) {
         loadData();
